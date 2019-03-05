@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"os"
 	"os/signal"
@@ -17,6 +18,11 @@ func readLine(f *os.File, rc chan string) {
 		}
 		rc <- input
 	}
+}
+
+func sigHandler(sig os.Signal) error {
+	fmt.Println(sig)
+	return errors.New("just terminate")
 }
 
 func main() {
@@ -36,8 +42,10 @@ func main() {
 				break
 			}
 		case sig := <-sc:
-			fmt.Println(sig)
-			os.Exit(1)
+			err := sigHandler(sig)
+			if err != nil {
+				os.Exit(1)
+			}
 		}
 	}
 }
