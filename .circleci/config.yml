@@ -8,9 +8,9 @@ jobs:
             # specify the version
             - image: circleci/golang:1.11
 
-    working_directory: /go/src/github.com/yuanhh/simple-shell
-    steps:
-        - checkout
+        working_directory: /go/src/github.com/yuanhh/simple-shell
+        steps:
+            - checkout
 
-        - run: go get -v -t -d ./...
-        - run: go test -v ./...
+            - run: go get -v -t -d ./...
+            - run: go test -v ./...
